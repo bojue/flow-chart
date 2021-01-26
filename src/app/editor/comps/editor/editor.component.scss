@@ -1,0 +1,16 @@
+:host {
+ 
+    #editor {
+        margin: 5px;
+        min-width: 1000px;
+        min-height: 700px;
+        width: calc(100% - 200px);
+        display: grid;
+        grid-template-columns: 300px auto 300px;
+        grid-column-gap: 5px;
+
+        .item {
+            border:1px solid #e5e5e5;
+        }
+    }
+}

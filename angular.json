@@ -15,8 +15,14 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig":{
+              "path":"./extra-webpack.config.js",
+              "mergeStrategies": {
+                "externals": "replace"
+              }
+            },
             "outputPath": "dist/ng-test",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -64,7 +70,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "ng-test:build"
           },
@@ -123,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng-test"
+    }
+  },
+  "defaultProject": "ng-test",
+  "cli": {
+    "analytics": false
+  }
 }
