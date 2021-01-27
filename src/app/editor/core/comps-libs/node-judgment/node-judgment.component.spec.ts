@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditorConentComponent } from './editor-conent.component';
+import { NodeJudgmentComponent } from './node-judgment.component';
 
-describe('EditorConentComponent', () => {
-  let component: EditorConentComponent;
-  let fixture: ComponentFixture<EditorConentComponent>;
+describe('NodeJudgmentComponent', () => {
+  let component: NodeJudgmentComponent;
+  let fixture: ComponentFixture<NodeJudgmentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditorConentComponent ]
+      declarations: [ NodeJudgmentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditorConentComponent);
+    fixture = TestBed.createComponent(NodeJudgmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
