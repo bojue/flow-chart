@@ -1,7 +1,9 @@
 <div id="editor-content">
-    <app-editor-device-signal (createComp)="creatCompByDrag($event)" class="item"></app-editor-device-signal>
-    <div class="item content">
+    <app-node-signal 
+        (createComp)="creatCompByDrag($event)" 
+        class="item"></app-node-signal>
+    <div id="content" class="item content">
         <ng-template appContentRefHost #contentComp ></ng-template>
     </div>
-    <app-editor-setting class="item"></app-editor-setting>
+    <app-node-stratrgy class="item"></app-node-stratrgy>
 </div>

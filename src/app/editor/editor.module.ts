@@ -1,11 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { EditorDeviceSignalComponent } from './components/editor-device-signal/editor-device-signal.component';
-import { EditorSettingComponent } from './components/editor-setting/editor-setting.component';
 import { ContentRefHostDirective } from './directives/content-ref-host.directive';
 import { EditorCoreModule } from './core/editor-core.module';
 import { EditorContentComponent } from './components/editor-content/editor-content.component';
+import { NodeStratrgyComponent } from './components/node-stratrgy/node-stratrgy.component';
+import { NodeSignalComponent } from './components/node-signal/node-signal.component';
 
 const routes: Routes = [
   { 
@@ -16,10 +16,10 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    EditorDeviceSignalComponent,
-    EditorSettingComponent,
     EditorContentComponent,
-    ContentRefHostDirective
+    ContentRefHostDirective,
+    NodeStratrgyComponent,
+    NodeSignalComponent
   ],
   exports:[
 

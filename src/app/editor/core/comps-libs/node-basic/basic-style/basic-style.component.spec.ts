@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditorDeviceSignalComponent } from './editor-device-signal.component';
+import { BasicStyleComponent } from './basic-style.component';
 
-describe('EditorDeviceSignalComponent', () => {
-  let component: EditorDeviceSignalComponent;
-  let fixture: ComponentFixture<EditorDeviceSignalComponent>;
+describe('BasicStyleComponent', () => {
+  let component: BasicStyleComponent;
+  let fixture: ComponentFixture<BasicStyleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditorDeviceSignalComponent ]
+      declarations: [ BasicStyleComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditorDeviceSignalComponent);
+    fixture = TestBed.createComponent(BasicStyleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

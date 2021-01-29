@@ -1,10 +1,10 @@
 import { Injectable, Component } from '@angular/core';
 import { NoMatchComponent } from '../comps-libs/no-match/no-match.component';
-import { NodeCalculationComponent } from '../comps-libs/node-calculation/node-calculation.component';
-import { NodeEndComponent } from '../comps-libs/node-end/node-end.component';
-import { NodeJudgmentComponent } from '../comps-libs/node-judgment/node-judgment.component';
-import { NodeStartComponent } from '../comps-libs/node-start/node-start.component';
-import { NodeComponent } from '../comps-libs/node/node.component';
+import { NodeCalculationComponent } from '../comps-libs/node-comps/node-calculation/node-calculation.component';
+import { NodeEndComponent } from '../comps-libs/node-comps/node-end/node-end.component';
+import { NodeJudgmentComponent } from '../comps-libs/node-comps/node-judgment/node-judgment.component';
+import { NodeStartComponent } from '../comps-libs/node-comps/node-start/node-start.component';
+import { NodeComponent } from '../comps-libs/node-comps/node/node.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,6 @@ export class DynamicCreateCompService {
   constructor() { }
 
   getComponentByType(type:string) {
-
-    console.log("type", )
     let comp;
     switch(type) {
       case 'node':
@@ -34,7 +32,7 @@ export class DynamicCreateCompService {
         comp = NodeJudgmentComponent;
         break;
       default:
-        comp = NodeComponent;
+        comp = NoMatchComponent;
     }
     return comp;
   }

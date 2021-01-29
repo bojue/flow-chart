@@ -1,0 +1,15 @@
+:host {
+    .libs-node {
+        user-select: none;
+        font-size: 14px;
+        position: absolute;
+        border: 1px solid rgba(73, 136, 254, 0.5);
+        height: 26px;
+        line-height: 26px;
+        cursor: move;
+        .name {
+            width: 100%;
+            padding: 4px 10px;
+        }
+    }
+}

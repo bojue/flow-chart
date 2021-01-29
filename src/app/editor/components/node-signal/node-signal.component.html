@@ -1,4 +1,4 @@
-<div class="editor-device-signal ">
+<div class="node-signal ">
     <div class="title">
         <span class="tit">
             设备列表
@@ -10,7 +10,10 @@
             <ul class="sub-list" *ngIf="item.child && item.child.length">
                 <li class="sub-item" *ngFor="let sub of item.child; index as subi;">
                     <span class="line"></span>
-                    <span class="sub-name dragBool"  draggable="true" (dragstart)="dragCreateComp($event, sub)">{{sub.name}}</span>
+                    <span class="sub-name dragBool"  
+                        draggable="true" 
+                        (dragend)="dragCreateComp($event, sub)"
+                        >{{sub.name}}</span>       
                 </li>
             </ul>
         </li>

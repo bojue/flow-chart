@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditorSettingComponent } from './editor-setting.component';
+import { NodeSignalComponent } from './node-signal.component';
 
-describe('EditorSettingComponent', () => {
-  let component: EditorSettingComponent;
-  let fixture: ComponentFixture<EditorSettingComponent>;
+describe('NodeSignalComponent', () => {
+  let component: NodeSignalComponent;
+  let fixture: ComponentFixture<NodeSignalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditorSettingComponent ]
+      declarations: [ NodeSignalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditorSettingComponent);
+    fixture = TestBed.createComponent(NodeSignalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
