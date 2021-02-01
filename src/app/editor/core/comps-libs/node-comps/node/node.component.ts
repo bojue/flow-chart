@@ -13,7 +13,12 @@ export class NodeComponent extends BasicComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.compJsonSchame)
+    this.getCompActiveState();
+  }
+
+  selPoint(event:MouseEvent) {
+    event.stopPropagation();
+    console.log(event)
   }
 
 }

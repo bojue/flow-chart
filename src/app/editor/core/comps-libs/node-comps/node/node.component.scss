@@ -4,12 +4,46 @@
         font-size: 14px;
         position: absolute;
         border: 1px solid rgba(73, 136, 254, 0.5);
-        height: 26px;
-        line-height: 26px;
+        height: 30px;
+        width: 60px;
+        line-height: 30px;
+        text-align: center;
+        &.active{
+            border:2px solid #4988fe;
+        }
         cursor: move;
         .name {
             width: 100%;
             padding: 4px 10px;
+        }
+
+        .line {
+            position: absolute;
+            width: 13px;
+            height: 1px;
+            background: #4988fe;
+            top: 15px;
+            right: -13px;
+        }
+
+        .bef-line {
+            left: -13px; 
+        }
+
+        .bef-point, .next-point {
+            cursor: crosshair;
+            position: absolute;
+            right: -20px;
+            top: 10px;
+            border-radius: 50px;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #4988fe;
+            background: #4988fe;
+        }
+
+        .bef-point {
+            left: -20px;
         }
     }
 }
