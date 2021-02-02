@@ -111,6 +111,15 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
                 "outputLinkElementConfigId": null,
                 "outputNodeId": null,
                 "outputNodeUniqueId": 40004
+              },
+              {
+                "segmentId": null,
+                "inputLinkElementConfigId": null,
+                "inputNodeId": null,
+                "inputNodeUniqueId": 40002,
+                "outputLinkElementConfigId": null,
+                "outputNodeId": null,
+                "outputNodeUniqueId": 40007
               }
             ]
           },
@@ -159,7 +168,40 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "segmentDTOs": []
           }
         ],
-        positionLeft: 300,
+        positionLeft: 400,
+        positionTop: 300,
+        uniqueId: 10002,
+      },
+      {
+        active: false,
+        elementId: 0,
+        expression: "5",
+        linkConfigId: 0,
+        linkElementConfigId: null,
+        nodeDTOs: [
+          {
+            "uniqueId": 40006,
+            "nodeId": null,
+            "linkElementConfigId": null,
+            "nodeDirection": "right",
+            "nodeType": "custom",
+            "nodeIndex": 1,
+            "nodeTag": null,
+            "expression": null,
+            "segmentDTOs": []
+          },{
+            "uniqueId": 40007,
+            "nodeId": null,
+            "linkElementConfigId": null,
+            "nodeDirection": "right",
+            "nodeType": "custom",
+            "nodeIndex": 1,
+            "nodeTag": null,
+            "expression": null,
+            "segmentDTOs": []
+          }
+        ],
+        positionLeft: 400,
         positionTop: 400,
         uniqueId: 10002,
       }
