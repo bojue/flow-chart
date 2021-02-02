@@ -8,6 +8,7 @@
         display: grid;
         grid-template-columns: 200px auto 300px;
         grid-column-gap: 5px;
+        overflow: auto;
 
         .item {
             border:1px solid #cccccc;

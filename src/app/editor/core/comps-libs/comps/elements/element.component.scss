@@ -39,11 +39,21 @@
             width: 10px;
             height: 10px;
             border: 1px solid #4988fe;
-            background: #4988fe;
+            background: white;
+            &:hover {
+                background: greenyellow;
+            }
         }
 
         .bef-point {
             left: -20px;
         }
+    }
+
+    svg {
+        position: absolute;
+        background: aliceblue;
+        left: -18px;
+        z-index: -2;
     }
 }

@@ -1,21 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoMatchComponent } from './no-match/no-match.component';
-import { NodeCalculationComponent } from './node-comps/node-calculation/node-calculation.component';
-import { NodeEndComponent } from './node-comps/node-end/node-end.component';
-import { NodeJudgmentComponent } from './node-comps/node-judgment/node-judgment.component';
-import { NodeStartComponent } from './node-comps/node-start/node-start.component';
-import { NodeComponent } from './node-comps/node/node.component';
-import { BasicComponent } from './node-basic/basic/basic.component';
+import { ElementComponent } from './comps/elements/element.component';
+import { BasicComponent } from './basic/basic/basic.component';
+import { LineComponent } from './comps/lines/line/line.component';
+import { SvgCanvasComponent } from './comps/lines/svg-canvas/svg-canvas.component';
 
 const nodeComps = [
-  NodeJudgmentComponent,
-  NodeStartComponent,
-  NodeEndComponent,
-  NodeCalculationComponent,
-  NodeComponent,
+  ElementComponent,
   NoMatchComponent,
-  BasicComponent
+  BasicComponent,
+  LineComponent,
+  SvgCanvasComponent
 ]
 @NgModule({
   declarations: [

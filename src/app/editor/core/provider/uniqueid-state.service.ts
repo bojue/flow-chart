@@ -5,16 +5,17 @@ import { maxBy , cloneDeep} from 'loadsh';
   providedIn: 'root'
 })
 export class CompUniqueIdStateService {
-    DEF_UNIQUE_ID:number =  1000;
+    ELEMENT_UNIQUE_ID:number =  10000;
+    NODE_UNIQUE_ID:number = 40000;
+    LINE_UNIQUE_ID:number = 60000;
 
     constructor() { }
 
-    compUniqueIdState(comps:any[] = []) {
+    elementUniqueIdState(comps:any[] = []) {
         let len = comps.length;
-        if(!len) return this.DEF_UNIQUE_ID;
+        if(!len) return this.ELEMENT_UNIQUE_ID;
         let currentMaxId = maxBy(cloneDeep(comps), 'uniqueId');
         let nextId = ++currentMaxId['uniqueId'];
-        return nextId || this.DEF_UNIQUE_ID;
-        
+        return nextId || this.ELEMENT_UNIQUE_ID;
     }
 }

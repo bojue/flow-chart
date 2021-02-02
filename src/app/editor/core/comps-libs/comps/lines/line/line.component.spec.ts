@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NodeJudgmentComponent } from './node-judgment.component';
+import { LineComponent } from './line.component';
 
-describe('NodeJudgmentComponent', () => {
-  let component: NodeJudgmentComponent;
-  let fixture: ComponentFixture<NodeJudgmentComponent>;
+describe('LineComponent', () => {
+  let component: LineComponent;
+  let fixture: ComponentFixture<LineComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NodeJudgmentComponent ]
+      declarations: [ LineComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NodeJudgmentComponent);
+    fixture = TestBed.createComponent(LineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

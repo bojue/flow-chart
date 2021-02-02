@@ -24,7 +24,6 @@ export class BasicComponent implements OnInit {
     return (param in this.compJsonSchame)  && this.compJsonSchame[param] + 'px'
   }
 
-
   selComp(event:MouseEvent) {
     event.stopPropagation();
     let item = {
