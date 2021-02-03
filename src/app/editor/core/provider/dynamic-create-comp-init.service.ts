@@ -16,7 +16,30 @@ export class DynamicCreateCompInitService {
       "positionTop":0,
       "positionLeft":0,
       "expression":"5",
-      "nodeDTOs":[]
+      "nodeDTOs":[
+        {
+          "uniqueId": 0,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "left",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+        {
+          "uniqueId": 0,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "left",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+      ]
     }
 
     initDataObject(type:string) {

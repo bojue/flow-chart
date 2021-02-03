@@ -12,8 +12,10 @@
         overflow-y: hidden;
         .item {
             border:1px solid #cccccc;
+            background: #ffffff;
         }
         .content {
+            background: transparent;
             position: relative;
         }
     }

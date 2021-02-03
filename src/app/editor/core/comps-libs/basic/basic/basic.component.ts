@@ -17,17 +17,34 @@ export class BasicComponent implements OnInit {
   }
 
   getCompActiveState() {
-    this.isActiveBool = this.compJsonSchame.active
+    if( this.compJsonSchame) {
+      this.isActiveBool = this.compJsonSchame.active
+    }
   }
 
   appendPixel(param:string) {
+    if(!this.compJsonSchame) return;
     return (param in this.compJsonSchame)  && this.compJsonSchame[param] + 'px'
   }
 
-  selComp(event:MouseEvent) {
+  // 操作元素
+  controlComp(event:MouseEvent) {
     event.stopPropagation();
     let item = {
       e:event,
+      type:'element',
+      data:this.compJsonSchame
+    }
+    this.onChildComponentChange.emit(item)
+  }
+
+  // 操作节点
+  controlNode(event:MouseEvent, state:string ) {
+    event.stopPropagation();
+    let item = {
+      e:event,
+      type:'node',
+      state:state,
       data:this.compJsonSchame
     }
     this.onChildComponentChange.emit(item)

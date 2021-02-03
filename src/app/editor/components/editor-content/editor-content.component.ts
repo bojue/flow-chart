@@ -4,9 +4,10 @@ import { DynamicCreateCompService } from '../../core/provider/dynamic-create-com
 import { ContentRefHostDirective } from '../../directives/content-ref-host.directive';
 import * as _ from 'loadsh'
 import { CompUniqueIdStateService } from '../../core/provider/uniqueid-state.service';
-import { ThrowStmt } from '@angular/compiler';
-import { SvgCanvasComponent } from '../../core/comps-libs/comps/lines/svg-canvas/svg-canvas.component';
+import { EventManager } from '@angular/platform-browser';
 import { LineComponent } from '../../core/comps-libs/comps/lines/line/line.component';
+import { of } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-editor-content',
   templateUrl: './editor-content.component.html',
@@ -30,7 +31,8 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     private componentFactoryResolver: ComponentFactoryResolver,
     private dynamicCreateCompService: DynamicCreateCompService,
     private initCompDataService: DynamicCreateCompInitService,
-    private uniqueidStateService: CompUniqueIdStateService
+    private uniqueidStateService: CompUniqueIdStateService,
+    private eventManager:EventManager
   ) {
 
   }
@@ -48,7 +50,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         expression: "5",
         linkConfigId: 0,
         linkElementConfigId: null,
-        positionLeft: 100,
+        positionLeft: 50,
         positionTop: 100,
         uniqueId: 10000,
         nodeDTOs: [
@@ -56,7 +58,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "uniqueId": 40000,
             "nodeId": null,
             "linkElementConfigId": null,
-            "nodeDirection": "right",
+            "nodeDirection": "left",
             "nodeType": "custom",
             "nodeIndex": 1,
             "nodeTag": null,
@@ -92,6 +94,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         expression: "5",
         linkConfigId: 0,
         linkElementConfigId: null,
+        positionLeft: 200,
+        positionTop: 200,
+        uniqueId: 10001,
         nodeDTOs: [
           {
             "uniqueId": 40002,
@@ -127,7 +132,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "uniqueId": 40003,
             "nodeId": null,
             "linkElementConfigId": null,
-            "nodeDirection": "right",
+            "nodeDirection": "left",
             "nodeType": "custom",
             "nodeIndex": 1,
             "nodeTag": null,
@@ -135,9 +140,6 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "segmentDTOs": []
           }
         ],
-        positionLeft: 200,
-        positionTop: 300,
-        uniqueId: 10001,
       },
       {
         active: false,
@@ -145,12 +147,15 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         expression: "5",
         linkConfigId: 0,
         linkElementConfigId: null,
+        positionLeft: 400,
+        positionTop: 200,
+        uniqueId: 10002,
         nodeDTOs: [
           {
             "uniqueId": 40004,
             "nodeId": null,
             "linkElementConfigId": null,
-            "nodeDirection": "right",
+            "nodeDirection": "left",
             "nodeType": "custom",
             "nodeIndex": 1,
             "nodeTag": null,
@@ -167,10 +172,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "expression": null,
             "segmentDTOs": []
           }
-        ],
-        positionLeft: 400,
-        positionTop: 300,
-        uniqueId: 10002,
+        ]
       },
       {
         active: false,
@@ -183,7 +185,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "uniqueId": 40006,
             "nodeId": null,
             "linkElementConfigId": null,
-            "nodeDirection": "right",
+            "nodeDirection": "left",
             "nodeType": "custom",
             "nodeIndex": 1,
             "nodeTag": null,
@@ -203,13 +205,73 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         ],
         positionLeft: 400,
         positionTop: 400,
-        uniqueId: 10002,
+        uniqueId: 10003,
+      },
+      {
+        active: false,
+        elementId: 0,
+        expression: "5",
+        linkConfigId: 0,
+        linkElementConfigId: null,
+        nodeDTOs: [
+          {
+            "uniqueId": 40006,
+            "nodeId": null,
+            "linkElementConfigId": null,
+            "nodeDirection": "left",
+            "nodeType": "custom",
+            "nodeIndex": 1,
+            "nodeTag": null,
+            "expression": null,
+            "segmentDTOs": []
+          },{
+            "uniqueId": 40007,
+            "nodeId": null,
+            "linkElementConfigId": null,
+            "nodeDirection": "right",
+            "nodeType": "custom",
+            "nodeIndex": 1,
+            "nodeTag": null,
+            "expression": null,
+            "segmentDTOs": []
+          }
+        ],
+        positionLeft: 50,
+        positionTop: 400,
+        uniqueId: 10004,
       }
     ];
   }
 
   ngAfterContentInit() {
     this.currentViewContRef = this.viewContRef.viewContainerRef;
+    this.initRendeComps();
+    this.initRenderLineComp();
+    this.addLister();
+  }
+
+  addLister() {
+    this.eventManager.addGlobalEventListener('window', 'keydown', event => {
+      if(event.code === 'Delete') {
+        let len = this.currentPageNodes.length;
+        for(let i=0;i<len;i++) {
+          let comp = this.currentPageNodes[i];
+          if(comp.active) {
+            this.currentPageNodes.splice(i, 1);
+            this.reRenderComp();
+            break;
+          }
+        }
+        this.activeCompState_index = -1;
+      }
+    })
+  }
+
+  reRenderComp() {
+    let len = this.currentPageNodes.length;
+    for(let i=0;i<len;i++) {
+      this.currentViewContRef.clear(i)
+    }
     this.initRendeComps();
     this.initRenderLineComp();
   }
@@ -244,6 +306,12 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
       // update state
       addCompJsonData['active'] = true;
       addCompJsonData['uniqueId'] = this.uniqueidStateService.elementUniqueIdState(this.currentPageNodes);
+      let nodeLen = addCompJsonData.nodeDTOs.length;
+      for(let i=0;i<nodeLen;i++) {
+        let node = addCompJsonData.nodeDTOs[i];
+        node.uniqueId = this.uniqueidStateService.nodeUniqueIdState(this.currentPageNodes, i);
+      }
+
     }
 
     this.currentPageNodes.push(addCompJsonData);
@@ -284,27 +352,77 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     (<any>compInstance).compJsonSchame = compJsonSchame;
     (compInstance).onChildComponentChange.subscribe(event => {
       if (event && event.data) {
-        let compJson = event.data;
-        this.initPagesCompState();
-        let _eType = event!.e!.type;
-        if (_eType === 'click') {
-          this.activeCompState_drag_sx = event.e.clientX;
-          this.activeCompState_drag_sy = event.e.clientY;
-        } else if (_eType === 'dragstart') {
-          this.activeCompState_drag_sx = event.e.clientX;
-          this.activeCompState_drag_sy = event.e.clientY;
-        } else if (_eType === 'dragend') {
-          let _cx = event.e.clientX;
-          let _cy = event.e.clientY;
-          let _x = _cx - this.activeCompState_drag_sx;
-          let _y = _cy - this.activeCompState_drag_sy;
-          compJson['positionLeft'] += _x;
-          compJson['positionTop'] += _y;
+        let type = event.type;
+        if(type === 'element') {
+          this.elementComponentChange(event);
+        }else if(type === 'node') {
+          this.nodeComponentChange(event);
         }
-        event.data.active = true;
-      }
 
+      }
     })
+  }
+
+  nodeComponentChange(event:any) {
+    let domContentRect = this.getContentBoundingClinetRect();
+    let _x = event.e.clientX - domContentRect.x;
+    let _y = event.e.clientY - domContentRect.y;
+    let _currenComp = event.data;
+    let comps = this.currentPageNodes;
+    let eType = event.e.type;
+    if(eType ==='dragstart') {
+
+    }
+    let len = comps.length;
+    for(let i=0;i<len;i++) {
+      let comp = comps[i];
+      if(comp['uniqueId'] === _currenComp['uniqueId']) {
+        continue;
+      }
+      let _left = comp['positionLeft'];
+      let _top = comp['positionTop'];
+      let NUM = 10;
+      if(event.state === 'output') {
+        let _offsetY = 15;
+        let _offsetX = 10;
+        if(_x >= _left - _offsetX - NUM && _x <= _left - _offsetX + NUM && _y >= _top + _offsetY - NUM && _y <= _top + _offsetY+ NUM) {
+          if(eType === 'dragend'){
+            _currenComp.leftNodeactive = false;
+            console.log(_currenComp, comp);
+            return;
+          }else {
+            comp.leftNodeactive = true;
+          }
+        }else {
+          if(comp.leftNodeactive) {
+            comp.leftNodeactive = false;
+          }
+        }
+      }
+   
+    }
+
+  }
+
+  elementComponentChange(event:any) {
+    let compJson = event.data;
+    this.initPagesCompState();
+    let _eType = event!.e!.type;
+    if (_eType === 'click') {
+      this.activeCompState_drag_sx = event.e.clientX;
+      this.activeCompState_drag_sy = event.e.clientY;
+    } else if (_eType === 'dragstart') {
+      this.activeCompState_drag_sx = event.e.clientX;
+      this.activeCompState_drag_sy = event.e.clientY;
+    } else if (_eType === 'dragend') {
+      let _cx = event.e.clientX;
+      let _cy = event.e.clientY;
+      let _x = _cx - this.activeCompState_drag_sx;
+      let _y = _cy - this.activeCompState_drag_sy;
+      compJson['positionLeft'] += _x;
+      compJson['positionTop'] += _y;
+    }
+    event.data.active = true;
   }
 
   initState() {

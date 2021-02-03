@@ -16,14 +16,6 @@ export class ElementComponent extends BasicComponent implements OnInit {
     this.getCompActiveState();
   }
 
-  selPoint(event:MouseEvent, state:string ) {
-    event.stopPropagation();
-    let pointData = {
-      e:event,
-      state:state
-    }
-  }
-
   drawLine() {
     
   }

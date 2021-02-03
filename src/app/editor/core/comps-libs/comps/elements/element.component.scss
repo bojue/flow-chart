@@ -48,6 +48,11 @@
         .bef-point {
             left: -20px;
         }
+
+        .nodeActive {
+            background: red;
+            border:1px solid red;
+        }
     }
 
     svg {

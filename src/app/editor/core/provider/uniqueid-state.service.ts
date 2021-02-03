@@ -18,4 +18,19 @@ export class CompUniqueIdStateService {
         let nextId = ++currentMaxId['uniqueId'];
         return nextId || this.ELEMENT_UNIQUE_ID;
     }
+
+    nodeUniqueIdState(comps:any[] = [], index) {
+        let len = comps.length;
+        let nodes = [];
+        for(let i=0;i<len;i++) {
+            let element = comps[i];
+            for(let j=0;j<element.nodeDTOs.length;j++) {
+                let item = element.nodeDTOs[j];
+                nodes.push(item);
+            }
+        }
+        let currentMaxId = maxBy(cloneDeep(nodes), 'uniqueId');
+        let nextId = ++currentMaxId['uniqueId'] + index;
+        return nextId || this.NODE_UNIQUE_ID;
+    }
 }

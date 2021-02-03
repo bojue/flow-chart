@@ -1,5 +1,7 @@
-<div class="libs-node" draggable="true" (click)="selComp($event)" (dragstart)="selComp($event)"
-    (dragend)="selComp($event)" [ngClass]="{
+<div class="libs-node" 
+    *ngIf="compJsonSchame"
+    draggable="true" (click)="controlComp($event)" (dragstart)="controlComp($event)"
+    (dragend)="controlComp($event)" [ngClass]="{
         active:compJsonSchame && compJsonSchame.active
     }" [ngStyle]="{
         top:appendPixel('positionTop'),
@@ -8,10 +10,17 @@
     <span class="name">{{compJsonSchame.uniqueId}}</span>
 
     <span class="bef-line line"></span>
-    <span class="bef-point point" draggable="true" (dragstart)="selPoint($event, 'output')"
-        (dragend)="selPoint($event, 'output')"></span>
+    <span class="bef-point point" 
+        [ngClass]="{
+            nodeActive:compJsonSchame && compJsonSchame.leftNodeactive
+        }"
+        draggable="true" 
+        (dragstart)="controlNode($event, 'output')"
+        (drag)="controlNode($event, 'output')"
+        (dragend)="controlNode($event, 'output')"></span>
 
     <span class="next-line line"></span>
-    <span class="next-point point" draggable="true" (dragstart)="selPoint($event, 'output')"
-        (dragend)="selPoint($event, 'output')"></span>
+    <span class="next-point point" draggable="true" (dragstart)="controlNode($event, 'output')"
+        (drag)="controlNode($event, 'output')"
+        (dragend)="controlNode($event, 'output')"></span>
 </div>
