@@ -1,5 +1,6 @@
 import { Injectable, Component } from '@angular/core';
 import * as _ from 'loadsh';
+import { cloneDeep } from 'loadsh';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class DynamicCreateCompInitService {
           "uniqueId": 0,
           "nodeId": null,
           "linkElementConfigId": null,
-          "nodeDirection": "left",
+          "nodeDirection": "right",
           "nodeType": "custom",
           "nodeIndex": 1,
           "nodeTag": null,
@@ -47,7 +48,7 @@ export class DynamicCreateCompInitService {
         node: this.COMP_MODE_DATA_JSON
       }
       // 深度
-      return _.clone(compJsonSchame[type]);
+      return _.cloneDeep(compJsonSchame[type]);
     }
 
     

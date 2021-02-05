@@ -6,8 +6,6 @@ import * as _ from 'loadsh'
 import { CompUniqueIdStateService } from '../../core/provider/uniqueid-state.service';
 import { EventManager } from '@angular/platform-browser';
 import { LineComponent } from '../../core/comps-libs/comps/lines/line/line.component';
-import { of } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-editor-content',
   templateUrl: './editor-content.component.html',
@@ -75,170 +73,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             "nodeTag": null,
             "expression": null,
             "segmentDTOs": [
-              {
-                "segmentId": null,
-                "inputLinkElementConfigId": null,
-                "inputNodeId": null,
-                "inputNodeUniqueId": 40001,
-                "outputLinkElementConfigId": null,
-                "outputNodeId": null,
-                "outputNodeUniqueId": 40002
-              }
             ]
           }
         ],
-      },
-      {
-        active: false,
-        elementId: 0,
-        expression: "5",
-        linkConfigId: 0,
-        linkElementConfigId: null,
-        positionLeft: 200,
-        positionTop: 200,
-        uniqueId: 10001,
-        nodeDTOs: [
-          {
-            "uniqueId": 40002,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "right",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": [
-              {
-                "segmentId": null,
-                "inputLinkElementConfigId": null,
-                "inputNodeId": null,
-                "inputNodeUniqueId": 40002,
-                "outputLinkElementConfigId": null,
-                "outputNodeId": null,
-                "outputNodeUniqueId": 40004
-              },
-              {
-                "segmentId": null,
-                "inputLinkElementConfigId": null,
-                "inputNodeId": null,
-                "inputNodeUniqueId": 40002,
-                "outputLinkElementConfigId": null,
-                "outputNodeId": null,
-                "outputNodeUniqueId": 40007
-              }
-            ]
-          },
-          {
-            "uniqueId": 40003,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "left",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          }
-        ],
-      },
-      {
-        active: false,
-        elementId: 0,
-        expression: "5",
-        linkConfigId: 0,
-        linkElementConfigId: null,
-        positionLeft: 400,
-        positionTop: 200,
-        uniqueId: 10002,
-        nodeDTOs: [
-          {
-            "uniqueId": 40004,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "left",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          },{
-            "uniqueId": 40005,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "right",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          }
-        ]
-      },
-      {
-        active: false,
-        elementId: 0,
-        expression: "5",
-        linkConfigId: 0,
-        linkElementConfigId: null,
-        nodeDTOs: [
-          {
-            "uniqueId": 40006,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "left",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          },{
-            "uniqueId": 40007,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "right",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          }
-        ],
-        positionLeft: 400,
-        positionTop: 400,
-        uniqueId: 10003,
-      },
-      {
-        active: false,
-        elementId: 0,
-        expression: "5",
-        linkConfigId: 0,
-        linkElementConfigId: null,
-        nodeDTOs: [
-          {
-            "uniqueId": 40006,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "left",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          },{
-            "uniqueId": 40007,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "right",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          }
-        ],
-        positionLeft: 50,
-        positionTop: 400,
-        uniqueId: 10004,
       }
     ];
   }
@@ -254,7 +91,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     this.eventManager.addGlobalEventListener('window', 'keydown', event => {
       if(event.code === 'Delete') {
         let len = this.currentPageNodes.length;
-        for(let i=0;i<len;i++) {
+        for(let i=len-1;i> 0;i++) {
           let comp = this.currentPageNodes[i];
           if(comp.active) {
             this.currentPageNodes.splice(i, 1);
@@ -388,7 +225,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         if(_x >= _left - _offsetX - NUM && _x <= _left - _offsetX + NUM && _y >= _top + _offsetY - NUM && _y <= _top + _offsetY+ NUM) {
           if(eType === 'dragend'){
             _currenComp.leftNodeactive = false;
-            console.log(_currenComp, comp);
+            this.appendLine(_currenComp, comp)
             return;
           }else {
             comp.leftNodeactive = true;
@@ -401,7 +238,36 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
       }
    
     }
+  }
 
+  appendLine(befComp, nextComp) {
+    let befNode = null;
+    let nextNode = null;
+
+    console.log('befComp.nodeDTOs',befComp.nodeDTOs)
+    console.log('nextComp.nodeDTOs' , nextComp.nodeDTOs)
+
+    befNode = _.find(befComp.nodeDTOs, {
+      'nodeDirection':'right'
+    })
+
+    nextNode = _.find(nextComp.nodeDTOs, {
+      'nodeDirection':'left'
+    })
+    if(befNode && nextNode) {
+      let line = {
+        "segmentId": null,
+        "inputLinkElementConfigId": null,
+        "inputNodeId": null,
+        "inputNodeUniqueId": befNode.uniqueId,
+        "outputLinkElementConfigId": null,
+        "outputNodeId": null,
+        "outputNodeUniqueId": nextNode.uniqueId
+      }
+      befNode.segmentDTOs.push(line)
+    }
+
+    console.log(befNode)
   }
 
   elementComponentChange(event:any) {
