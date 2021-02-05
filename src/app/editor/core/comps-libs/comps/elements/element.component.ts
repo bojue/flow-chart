@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BasicComponent } from '../../basic/basic/basic.component';
+
 @Component({
   selector: 'app-element',
   templateUrl: './element.component.html',
@@ -14,6 +15,7 @@ export class ElementComponent extends BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCompActiveState();
+    this.getNodesPostion(this.compJsonSchame['nodeDTOs'])
   }
 
   drawLine() {

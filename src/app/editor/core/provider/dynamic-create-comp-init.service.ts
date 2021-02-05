@@ -1,6 +1,5 @@
 import { Injectable, Component } from '@angular/core';
 import * as _ from 'loadsh';
-import { cloneDeep } from 'loadsh';
 
 @Injectable({
   providedIn: 'root'

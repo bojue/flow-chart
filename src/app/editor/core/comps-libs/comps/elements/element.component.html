@@ -1,26 +1,36 @@
 <div class="libs-node" 
     *ngIf="compJsonSchame"
-    draggable="true" (click)="controlComp($event)" (dragstart)="controlComp($event)"
+    draggable="true" 
+    (click)="controlComp($event)" 
+    (dragstart)="controlComp($event)"
     (dragend)="controlComp($event)" [ngClass]="{
         active:compJsonSchame && compJsonSchame.active
     }" [ngStyle]="{
         top:appendPixel('positionTop'),
         left:appendPixel('positionLeft')
     }">
-    <span class="name">{{compJsonSchame.uniqueId}}</span>
+    <span class="name">{{compJsonSchame && compJsonSchame.expression.name || "元素"}}</span>
 
-    <span class="bef-line line"></span>
-    <span class="bef-point point" 
-        [ngClass]="{
-            nodeActive:compJsonSchame && compJsonSchame.leftNodeactive
-        }"
-        draggable="true" 
-        (dragstart)="controlNode($event, 'output')"
-        (drag)="controlNode($event, 'output')"
-        (dragend)="controlNode($event, 'output')"></span>
-
-    <span class="next-line line"></span>
-    <span class="next-point point" draggable="true" (dragstart)="controlNode($event, 'output')"
-        (drag)="controlNode($event, 'output')"
-        (dragend)="controlNode($event, 'output')"></span>
+    <div class="bef-nodes"> 
+        <span 
+            class="bef-node node" 
+            [ngClass]="{
+                nodeActive:compJsonSchame && compJsonSchame.leftNodeactive
+            }"
+            draggable="true" 
+            (dragstart)="controlNode($event, 'output')"
+            (drag)="controlNode($event, 'output')"
+            (dragend)="controlNode($event, 'output')"></span>
+    </div>
+    <div class="next-nodes" > 
+        <span *ngFor="let node of compJsonSchame['nodeDTOs'];"
+            class="next-node node" 
+            draggable="true" 
+            (dragstart)="controlNode($event, 'output')"
+            (drag)="controlNode($event, 'output')"
+            (dragend)="controlNode($event, 'output')"
+            >
+            {{node}}
+        </span>
+    </div>
 </div>

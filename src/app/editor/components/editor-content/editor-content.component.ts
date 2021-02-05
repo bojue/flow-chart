@@ -41,43 +41,73 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
 
   initData() {
     this.activeCompState_index = 0;
-    this.currentPageNodes = [
-      {
-        active: true,
-        elementId: 0,
-        expression: "5",
-        linkConfigId: 0,
-        linkElementConfigId: null,
-        positionLeft: 50,
-        positionTop: 100,
-        uniqueId: 10000,
-        nodeDTOs: [
-          {
-            "uniqueId": 40000,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "left",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": []
-          },
-          {
-            "uniqueId": 40001,
-            "nodeId": null,
-            "linkElementConfigId": null,
-            "nodeDirection": "right",
-            "nodeType": "custom",
-            "nodeIndex": 1,
-            "nodeTag": null,
-            "expression": null,
-            "segmentDTOs": [
-            ]
-          }
-        ],
-      }
-    ];
+    this.currentPageNodes = [{
+      "uniqueId":20,
+      "linkElementConfigId":null,
+      "linkConfigId":0,
+      "elementId":0,
+      "positionTop":100,
+      "positionLeft":100,
+      "expression":"5",
+      "nodeDTOs":[
+        {
+          "uniqueId": 10000,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "right",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+        {
+          "uniqueId": 10001,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "left",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+      ]
+    },{
+      "uniqueId":10,
+      "linkElementConfigId":null,
+      "linkConfigId":0,
+      "elementId":0,
+      "positionTop":200,
+      "positionLeft":200,
+      "expression":"5",
+      "nodeDTOs":[
+        {
+          "uniqueId": 10002,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "right",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+        {
+          "uniqueId": 10003,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "left",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+      ]
+    }
+
+]; // init pageNodes
   }
 
   ngAfterContentInit() {
@@ -139,7 +169,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
       let domContentRect = this.getContentBoundingClinetRect();
       addCompJsonData['positionLeft'] = event.clientX - domContentRect.x;
       addCompJsonData['positionTop'] = event.clientY - domContentRect.y;
-
+      addCompJsonData['expression'] = expressionData;
       // update state
       addCompJsonData['active'] = true;
       addCompJsonData['uniqueId'] = this.uniqueidStateService.elementUniqueIdState(this.currentPageNodes);

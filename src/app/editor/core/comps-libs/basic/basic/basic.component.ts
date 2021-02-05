@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
-
+import * as _ from 'loadsh';
 @Component({
   selector: 'app-basic',
   templateUrl: './basic.component.html',
@@ -23,7 +23,7 @@ export class BasicComponent implements OnInit {
   }
 
   appendPixel(param:string) {
-    if(!this.compJsonSchame) return;
+    if(!this.compJsonSchame) return false;
     return (param in this.compJsonSchame)  && this.compJsonSchame[param] + 'px'
   }
 
@@ -48,6 +48,12 @@ export class BasicComponent implements OnInit {
       data:this.compJsonSchame
     }
     this.onChildComponentChange.emit(item)
+  }
+
+  // 获取节点数据
+  getNodesPostion(nodes:any[], state?:string) {
+    let leftNodes = _.groupBy(nodes, 'nodeDirection')
+    console.log(leftNodes)
   }
 
 }

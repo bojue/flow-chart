@@ -17,20 +17,7 @@
             padding: 4px 10px;
         }
 
-        .line {
-            position: absolute;
-            width: 13px;
-            height: 1px;
-            background: #4988fe;
-            top: 15px;
-            right: -13px;
-        }
-
-        .bef-line {
-            left: -13px; 
-        }
-
-        .bef-point, .next-point {
+        .bef-node, .next-node {
             cursor: crosshair;
             position: absolute;
             right: -20px;
@@ -45,7 +32,7 @@
             }
         }
 
-        .bef-point {
+        .bef-node {
             left: -20px;
         }
 
