@@ -12,25 +12,29 @@
     <span class="name">{{compJsonSchame && compJsonSchame.expression.name || "元素"}}</span>
 
     <div class="bef-nodes"> 
-        <span 
+        <span *ngFor="let node of compJsonSchame['nodeDTOs']['left'];index as i;"
             class="bef-node node" 
             [ngClass]="{
                 nodeActive:compJsonSchame && compJsonSchame.leftNodeactive
             }"
             draggable="true" 
+            [ngStyle]="{
+                top:appendPixel('y', node)
+            }"
             (dragstart)="controlNode($event, 'output')"
             (drag)="controlNode($event, 'output')"
             (dragend)="controlNode($event, 'output')"></span>
     </div>
     <div class="next-nodes" > 
-        <span *ngFor="let node of compJsonSchame['nodeDTOs'];"
+        <span *ngFor="let node of compJsonSchame['nodeDTOs']['right'];index as i;"
             class="next-node node" 
             draggable="true" 
-            (dragstart)="controlNode($event, 'output')"
-            (drag)="controlNode($event, 'output')"
-            (dragend)="controlNode($event, 'output')"
-            >
-            {{node}}
+            [ngStyle]="{
+                top:appendPixel('y', node)
+            }"
+            (dragstart)="controlNode($event, 'output', node)"
+            (drag)="controlNode($event, 'output', node)"
+            (dragend)="controlNode($event, 'output', node)">
         </span>
     </div>
 </div>

@@ -1,9 +1,6 @@
 <svg width="1000px" height="700px" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <line *ngFor="let line of segmentDTOs" 
+    <path  *ngFor="let line of segmentDTOs" 
         class="line" 
-        [attr.x1]="line.x1" 
-        [attr.y1]="line.y1" 
-        [attr.x2]="line.x2" 
-        [attr.y2]="line.y2"
-        style="stroke:#4988fe; stroke-width:1px; "/>
+        [attr.d]="line.d" 
+        style="stroke:#4988fe; stroke-width:1px;fill:none; "/>
 </svg>

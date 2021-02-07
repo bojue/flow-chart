@@ -6,6 +6,7 @@ import * as _ from 'loadsh'
 import { CompUniqueIdStateService } from '../../core/provider/uniqueid-state.service';
 import { EventManager } from '@angular/platform-browser';
 import { LineComponent } from '../../core/comps-libs/comps/lines/line/line.component';
+import { cloneDeep } from 'loadsh';
 @Component({
   selector: 'app-editor-content',
   templateUrl: './editor-content.component.html',
@@ -103,12 +104,20 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
           "nodeTag": null,
           "expression": null,
           "segmentDTOs": []
+        }, {
+          "uniqueId": 10004,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "right",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
         },
       ]
     }
-
-]; // init pageNodes
-  }
+  ]}
 
   ngAfterContentInit() {
     this.currentViewContRef = this.viewContRef.viewContainerRef;
@@ -234,7 +243,10 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     let domContentRect = this.getContentBoundingClinetRect();
     let _x = event.e.clientX - domContentRect.x;
     let _y = event.e.clientY - domContentRect.y;
+    let _nodeData = event.nodeData;
+    if(!_nodeData) return;
     let _currenComp = event.data;
+
     let comps = this.currentPageNodes;
     let eType = event.e.type;
     if(eType ==='dragstart') {
@@ -255,7 +267,14 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         if(_x >= _left - _offsetX - NUM && _x <= _left - _offsetX + NUM && _y >= _top + _offsetY - NUM && _y <= _top + _offsetY+ NUM) {
           if(eType === 'dragend'){
             _currenComp.leftNodeactive = false;
-            this.appendLine(_currenComp, comp)
+            let _node =_.find(_currenComp.nodeDTOs, {
+              uniqueId: _nodeData.uniqueId
+            })
+            if(_node) {
+              _node.y = _.cloneDeep(_nodeData.y);
+            }
+            this.appendLine(comp, _node);
+    
             return;
           }else {
             comp.leftNodeactive = true;
@@ -270,17 +289,8 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     }
   }
 
-  appendLine(befComp, nextComp) {
-    let befNode = null;
+  appendLine( nextComp, befNode) {
     let nextNode = null;
-
-    console.log('befComp.nodeDTOs',befComp.nodeDTOs)
-    console.log('nextComp.nodeDTOs' , nextComp.nodeDTOs)
-
-    befNode = _.find(befComp.nodeDTOs, {
-      'nodeDirection':'right'
-    })
-
     nextNode = _.find(nextComp.nodeDTOs, {
       'nodeDirection':'left'
     })
@@ -296,8 +306,6 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
       }
       befNode.segmentDTOs.push(line)
     }
-
-    console.log(befNode)
   }
 
   elementComponentChange(event:any) {

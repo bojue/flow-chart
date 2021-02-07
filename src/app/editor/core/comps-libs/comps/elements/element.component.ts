@@ -15,7 +15,6 @@ export class ElementComponent extends BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCompActiveState();
-    this.getNodesPostion(this.compJsonSchame['nodeDTOs'])
   }
 
   drawLine() {

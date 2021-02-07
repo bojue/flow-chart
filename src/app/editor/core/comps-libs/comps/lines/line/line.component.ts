@@ -62,7 +62,7 @@ export class LineComponent implements OnInit , AfterContentChecked{
   }
 
   appendLinesInfo() {
-    let nodes = this.nodeDTOs;
+    let nodes = _.cloneDeep(this.nodeDTOs);
     let lines_len = this.segmentDTOs.length;
     for(let i=0;i<lines_len;i++) {
       let line = this.segmentDTOs[i];
@@ -74,9 +74,11 @@ export class LineComponent implements OnInit , AfterContentChecked{
       })
       if(!!sNode && !!eNode) {
         line['x1'] = sNode['positionLeft'] + 76;
-        line['y1'] = sNode['positionTop'] + 15;
+        line['y1'] = sNode['positionTop'] +  sNode.y + 10;
         line['x2'] = eNode['positionLeft'] - 12;
-        line['y2'] = eNode['positionTop'] + 15;
+        line['y2'] = eNode['positionTop']  + eNode.y + 10;
+        let _minddle_x = (line.x1 + line.x2 ) /2;
+        line['d']=`M ${line.x1},${line.y1} C ${_minddle_x},${line.y1} ${_minddle_x},${line.y2} ${ line.x2},${line.y2}`
       }
     }
   }
