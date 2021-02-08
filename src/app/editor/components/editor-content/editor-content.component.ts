@@ -275,7 +275,8 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     let len = elements.length;
     let eType = event.e.type;
     if(eType ==='dragstart') {
-      _nodeData.befNodeActive = true
+      _nodeData.befNodeActive = true;
+      console.log(_direction, event.state)
     }else if(eType === 'dragend') {
       _nodeData.befNodeActive = false
     }
@@ -286,7 +287,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
       }
       let _left = element['positionLeft'];
       let _top = element['positionTop'];
-      let NUM = 10;
+      let _pending = 10;
       let _nodes = _.groupBy(element.nodeDTOs, 'nodeDirection')[_direction === 'right' ? "left" :'right'];
       let _len = _nodes.length;
       let _offsetY = 5;
@@ -295,13 +296,34 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         let _node = _nodes[i];
         _top  += _node.y;
         if(event.state === 'output') {
-          if(_x >= _left - _offsetX - NUM && _x <= _left - _offsetX + NUM && _y >= _top + _offsetY - NUM && _y <= _top + _offsetY+ NUM) {
+          if(_x >= _left - _offsetX - _pending && _x <= _left - _offsetX + _pending && _y >= _top + _offsetY - _pending && _y <= _top + _offsetY+ _pending) {
             if(eType === 'dragend'){
               _node.nextNodeactive = false;
               if(_node) {
                 _node.y = _nodeData.y;
               }
               this.appendLine(_node, _nodeData,  _nodeData.segmentDTOs);
+              return;
+            }else {
+              _node.nextNodeactive = true;
+            }
+          }else {
+            if(_node.nextNodeactive) {
+              _node.nextNodeactive = false;
+            }
+          }
+        } else if(event.state === 'input') {
+          let _width = 75;
+          if(_x >= _left - _offsetX + _width +  _pending 
+              && _x <= _left - _offsetX + _width +  _pending 
+              && _y >= _top + _offsetY - _pending 
+              && _y <= _top + _offsetY+ _pending) {
+            if(eType === 'dragend'){
+              _node.nextNodeactive = false;
+              if(_node) {
+                _node.y = _nodeData.y;
+              }
+              this.appendLine(_nodeData, _node,  _node.segmentDTOs);
               return;
             }else {
               _node.nextNodeactive = true;

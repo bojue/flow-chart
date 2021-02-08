@@ -22,9 +22,9 @@
             [ngStyle]="{
                 top:appendPixel('y', node)
             }"
-            (dragstart)="controlNode($event, 'output')"
-            (drag)="controlNode($event, 'output')"
-            (dragend)="controlNode($event, 'output')"></span>
+            (dragstart)="controlNode($event, 'input', node)"
+            (drag)="controlNode($event, 'input', node)"
+            (dragend)="controlNode($event, 'input', node)"></span>
     </div>
     <div class="next-nodes" > 
         <span *ngFor="let node of compJsonSchame['nodeDTOs']['right'];index as i;"
