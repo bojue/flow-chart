@@ -313,8 +313,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
             }
           }
         } else if(event.state === 'input') {
-          let _width = 75;
-          if(_x >= _left - _offsetX + _width +  _pending 
+          let _width = 70;
+          _pending  = 15;
+          if(_x >= _left - _offsetX + _width -  _pending 
               && _x <= _left - _offsetX + _width +  _pending 
               && _y >= _top + _offsetY - _pending 
               && _y <= _top + _offsetY+ _pending) {
@@ -341,7 +342,6 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
   }
 
   appendLine( nextNode, befNode, segmentDTOs:any[]) {
-    console.log(nextNode, befNode,segmentDTOs)
     if(befNode && nextNode) {
       let line = {
         "segmentId": null,
