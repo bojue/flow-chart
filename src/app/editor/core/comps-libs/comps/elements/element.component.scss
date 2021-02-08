@@ -36,9 +36,13 @@
             left: -20px;
         }
 
-        .nodeActive {
+        .nextNodeActive {
             background: red;
             border:1px solid red;
+        }
+        .befNodeActive {
+            background: greenyellow;
+            border:1px solid #4988fe;
         }
     }
 

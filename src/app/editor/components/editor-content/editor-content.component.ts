@@ -93,6 +93,16 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
           "nodeTag": null,
           "expression": null,
           "segmentDTOs": []
+        }, {
+          "uniqueId": 10006,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "right",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
         },
         {
           "uniqueId": 10003,
@@ -106,6 +116,16 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
           "segmentDTOs": []
         }, {
           "uniqueId": 10004,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "left",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        }, {
+          "uniqueId": 10005,
           "nodeId": null,
           "linkElementConfigId": null,
           "nodeDirection": "right",
@@ -132,6 +152,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         let len = this.currentPageNodes.length;
         for(let i=len-1;i> 0;i++) {
           let comp = this.currentPageNodes[i];
+          if(!comp) {
+            break;
+          }
           if(comp.active) {
             this.currentPageNodes.splice(i, 1);
             this.reRenderComp();
@@ -245,55 +268,58 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     let _y = event.e.clientY - domContentRect.y;
     let _nodeData = event.nodeData;
     if(!_nodeData) return;
+    let _direction = _nodeData.nodeDirection;
     let _currenComp = event.data;
 
-    let comps = this.currentPageNodes;
+    let elements = this.currentPageNodes;
+    let len = elements.length;
     let eType = event.e.type;
     if(eType ==='dragstart') {
-
+      _nodeData.befNodeActive = true
+    }else if(eType === 'dragend') {
+      _nodeData.befNodeActive = false
     }
-    let len = comps.length;
     for(let i=0;i<len;i++) {
-      let comp = comps[i];
-      if(comp['uniqueId'] === _currenComp['uniqueId']) {
+      let element = elements[i];
+      if(element['uniqueId'] === _currenComp['uniqueId']) {
         continue;
       }
-      let _left = comp['positionLeft'];
-      let _top = comp['positionTop'];
+      let _left = element['positionLeft'];
+      let _top = element['positionTop'];
       let NUM = 10;
-      if(event.state === 'output') {
-        let _offsetY = 15;
-        let _offsetX = 10;
-        if(_x >= _left - _offsetX - NUM && _x <= _left - _offsetX + NUM && _y >= _top + _offsetY - NUM && _y <= _top + _offsetY+ NUM) {
-          if(eType === 'dragend'){
-            _currenComp.leftNodeactive = false;
-            let _node =_.find(_currenComp.nodeDTOs, {
-              uniqueId: _nodeData.uniqueId
-            })
-            if(_node) {
-              _node.y = _.cloneDeep(_nodeData.y);
+      let _nodes = _.groupBy(element.nodeDTOs, 'nodeDirection')[_direction === 'right' ? "left" :'right'];
+      let _len = _nodes.length;
+      let _offsetY = 5;
+      let _offsetX = 10;
+      for(let i=0;i<_len;i++) {
+        let _node = _nodes[i];
+        _top  += _node.y;
+        if(event.state === 'output') {
+          if(_x >= _left - _offsetX - NUM && _x <= _left - _offsetX + NUM && _y >= _top + _offsetY - NUM && _y <= _top + _offsetY+ NUM) {
+            if(eType === 'dragend'){
+              _node.nextNodeactive = false;
+              if(_node) {
+                _node.y = _nodeData.y;
+              }
+              this.appendLine(_node, _nodeData,  _nodeData.segmentDTOs);
+              return;
+            }else {
+              _node.nextNodeactive = true;
             }
-            this.appendLine(comp, _node);
-    
-            return;
           }else {
-            comp.leftNodeactive = true;
-          }
-        }else {
-          if(comp.leftNodeactive) {
-            comp.leftNodeactive = false;
+            if(_node.nextNodeactive) {
+              _node.nextNodeactive = false;
+            }
           }
         }
       }
+
    
     }
   }
 
-  appendLine( nextComp, befNode) {
-    let nextNode = null;
-    nextNode = _.find(nextComp.nodeDTOs, {
-      'nodeDirection':'left'
-    })
+  appendLine( nextNode, befNode, segmentDTOs:any[]) {
+    console.log(nextNode, befNode,segmentDTOs)
     if(befNode && nextNode) {
       let line = {
         "segmentId": null,
@@ -304,7 +330,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         "outputNodeId": null,
         "outputNodeUniqueId": nextNode.uniqueId
       }
-      befNode.segmentDTOs.push(line)
+      segmentDTOs.push(line)
     }
   }
 

@@ -22,7 +22,10 @@ export class BasicComponent implements OnInit, AfterContentInit, AfterContentChe
   }
   
   ngAfterContentChecked() {
-    this.getNodesPostion(this.compJsonSchame['nodeDTOs']);
+    if(this.compJsonSchame) {
+      this.getNodesPostion(this.compJsonSchame['nodeDTOs']);
+    }
+   
   }
 
   getCompActiveState() {
