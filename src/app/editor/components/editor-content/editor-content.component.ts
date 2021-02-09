@@ -42,7 +42,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
 
   initData() {
     this.activeCompState_index = 0;
-    this.currentPageNodes = [{
+    this.currentPageNodes =[{
       "uniqueId":20,
       "linkElementConfigId":null,
       "linkConfigId":0,

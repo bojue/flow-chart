@@ -5,7 +5,12 @@
 npm run dev
 
 ```
+打开链接
 
+```javascript
+http://localhost:8000/
+
+```
 ### 功能列表
 
 > 基础
