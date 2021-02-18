@@ -23,8 +23,11 @@ export class LineComponent implements OnInit , AfterContentChecked{
     this.appendLinesInfo();
   }
 
+
   ngAfterContentChecked() {
-    this.ngOnInit();
+    this.initData();
+    this.getData();
+    this.appendLinesInfo();
   }
 
   initData() {
@@ -72,6 +75,7 @@ export class LineComponent implements OnInit , AfterContentChecked{
       let eNode = _.find(nodes, {
         uniqueId: line.outputNodeUniqueId
       })
+      console.log(!!eNode, !!sNode)
       if(!!sNode && !!eNode) {
         line['x1'] = sNode['positionLeft'] + 76;
         line['y1'] = sNode['positionTop'] +  sNode.y + 10;
@@ -79,8 +83,15 @@ export class LineComponent implements OnInit , AfterContentChecked{
         line['y2'] = eNode['positionTop']  + eNode.y + 10;
         let _minddle_x = (line.x1 + line.x2 ) /2;
         line['d']=`M ${line.x1},${line.y1} C ${_minddle_x},${line.y1} ${_minddle_x},${line.y2} ${ line.x2},${line.y2}`
+      }else {
+        line['DelBool']  = true;
       }
     }
+
+    _.remove(this.segmentDTOs, line => {
+      return line.DelBool === true 
+    })
+
   }
 
 }
