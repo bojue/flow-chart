@@ -5,7 +5,7 @@
     "ng": "ng",
     "anylyze": "ng serve",
     "dev": "npm run start",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

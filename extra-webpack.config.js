@@ -70,7 +70,6 @@ module.exports = {
     host:'localhost',
     serveIndex:true,
     port: 8000,
-    overlay: true,
-    open: false
+    overlay: true
   },
 };
