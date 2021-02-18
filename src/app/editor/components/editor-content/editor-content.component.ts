@@ -149,18 +149,10 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
   addLister() {
     this.eventManager.addGlobalEventListener('window', 'keydown', event => {
       if(event.code === 'Delete') {
-        let len = this.currentPageNodes.length;
-        for(let i=len-1;i> 0;i++) {
-          let comp = this.currentPageNodes[i];
-          if(!comp) {
-            break;
-          }
-          if(comp.active) {
-            this.currentPageNodes.splice(i, 1);
-            this.reRenderComp();
-            break;
-          }
-        }
+        _.remove(this.currentPageNodes, node => {
+          return node.active === true 
+        })
+        this.reRenderComp();
         this.activeCompState_index = -1;
       }
     })
