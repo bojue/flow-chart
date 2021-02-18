@@ -1,4 +1,4 @@
-### run dev
+# run dev
 
 ```javascript
 
@@ -11,32 +11,64 @@ npm run dev
 http://localhost:8000/
 
 ```
-### 功能列表
 
-> 基础
+# 项目结构
 
-- 动态组件创建(ok)
-- 拖拽(ok)
+```js
+|-- editor
+    |
+    |-- components  // 组件
+        |
+        |-- editor-content // 编辑器容器
+        |-- node-signal //信号节点（服务端提供的信号树列表）
+        |-- node-stratrgy // 规则节点（计算节点）
+    |-- core        // 核心代码
+        |
+        |-- basic // 抽象的基础组件
+        |-- comps  // 继承 baisc的核心组件库
+            |
+            |-- line // 连线系统组件
+            |-- svg-canvs // svg处理的组件（目前没有用到，计划提供连线过程中的动画效果之类的）
+        |-- node-mathc // 空组件
+    |-- directicves // 指令,画板容器指令，提供组件挂载容器
+    |-- providers   // 服务
 
-> 元素
+```
+# 元素对象数据结构
 
-- 元素uniqueId维护(ok)
-- 元素增加(ok)
-- 元素删除
-- 元素逻辑开发整理
-- 元素修改逻辑维护
-> 触点
+```javascript
+const comp = {  // 元素对象
+      "uniqueId":20,
+      "linkElementConfigId":null,
+      "linkConfigId":0,
+      "elementId":0,
+      "positionTop":100,
+      "positionLeft":100,
+      "expression":"5",
+      "nodeDTOs":[      //触点
+        {
+          "uniqueId": 10000,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "right", // 出
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": [] // 连线
+        },
+        {
+          "uniqueId": 10001,
+          "nodeId": null,
+          "linkElementConfigId": null,
+          "nodeDirection": "left",
+          "nodeType": "custom",
+          "nodeIndex": 1,
+          "nodeTag": null,
+          "expression": null,
+          "segmentDTOs": []
+        },
+      ]
+    }
 
-- 触点uniqueId维护
-- 触点增加
-- 触点删除
-- 触点修改
-
-> 连线
-
-- 连线uniqueId维护
-- 连线计算(ok)
-- 连线增加
-- 连线删除
-- 触点/连线逻辑优化
-
+```
