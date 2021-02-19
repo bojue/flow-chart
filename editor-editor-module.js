@@ -588,7 +588,7 @@ class JsonSchemaComponent {
     }
 }
 JsonSchemaComponent.ɵfac = function JsonSchemaComponent_Factory(t) { return new (t || JsonSchemaComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_1__["NgbActiveModal"])); };
-JsonSchemaComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: JsonSchemaComponent, selectors: [["app-json-schema"]], decls: 8, vars: 2, consts: [[1, "json-schema"], [1, "title"], [1, "tit"], ["src", "./../../../../assets/imgs/close.svg", "alt", "", 1, "icon", 3, "click"], ["id", "content"], ["class", "values", 4, "ngIf"], [1, "values"], ["src", "./../../../../assets/imgs/nodata.svg", "alt", "", 1, "node-data"]], template: function JsonSchemaComponent_Template(rf, ctx) { if (rf & 1) {
+JsonSchemaComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: JsonSchemaComponent, selectors: [["app-json-schema"]], decls: 8, vars: 2, consts: [[1, "json-schema"], [1, "title"], [1, "tit"], ["src", "assets/imgs/close.svg", "alt", "", 1, "icon", 3, "click"], ["id", "content"], ["class", "values", 4, "ngIf"], [1, "values"], ["src", "assets/imgs/nodata.svg", "alt", "", 1, "node-data"]], template: function JsonSchemaComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "span", 2);
@@ -1216,7 +1216,7 @@ EditorContentComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.viewContRef = _t.first);
-    } }, decls: 8, vars: 0, consts: [[1, "content"], ["id", "jsonComp"], ["src", "./../../../../assets/imgs/json.svg", "alt", "json", "title", "jsonschema", 1, "icon", 3, "click"], ["id", "editor-content"], [1, "item", 3, "createComp"], ["id", "content", 1, "item", "content"], ["appContentRefHost", ""], ["contentComp", ""]], template: function EditorContentComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 8, vars: 0, consts: [[1, "content"], ["id", "jsonComp"], ["src", "assets/imgs/json.svg", "alt", "json", "title", "jsonschema", 1, "icon", 3, "click"], ["id", "editor-content"], [1, "item", 3, "createComp"], ["id", "content", 1, "item", "content"], ["appContentRefHost", ""], ["contentComp", ""]], template: function EditorContentComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "img", 2);
