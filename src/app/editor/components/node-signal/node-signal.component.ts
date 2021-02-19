@@ -22,33 +22,24 @@ export class NodeSignalComponent implements OnInit {
   getData() {
     this.datas = [{
       id:1,
-      name:"空调001",
-      deviceId:10001,
-      type:'device',
+      name:"Elements",
+      type:'type',
       child:[{
           id:1,
-          name:"温度",
-          currentVal:"23.8",
-          state:0,
-          type:'signal'
+          name:"Ele-1",
+          type:'element'
         },{
           id:2,
-          name:"湿度",
-          currentVal:"11",
-          state:0,
-          type:'signal'
+          name:"Ele-2",
+          type:'element'
         },{
           id:3,
-          name:"电压",
-          currentVal:"11",
-          state:0,
-          type:'signal'
+          name:"Ele-3",
+          type:'element'
         },{
           id:4,
-          name:"电流",
-          currentVal:"11",
-          state:0,
-          type:'signal'
+          name:"Ele-4",
+          type:'element'
         }
       ]
     }]

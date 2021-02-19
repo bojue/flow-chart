@@ -7,7 +7,7 @@ import * as _ from 'loadsh';
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.scss']
 })
-export class LineComponent implements OnInit , AfterContentChecked{
+export class LineComponent implements OnInit , AfterContentChecked {
   elements:any[];
   nodeDTOs:any[];
   segmentDTOs:any[];
@@ -65,22 +65,23 @@ export class LineComponent implements OnInit , AfterContentChecked{
   }
 
   appendLinesInfo() {
-    let nodes = _.cloneDeep(this.nodeDTOs);
+    let nodes = this.nodeDTOs;
     let lines_len = this.segmentDTOs.length;
+    let segDTOs = this.segmentDTOs
     for(let i=0;i<lines_len;i++) {
-      let line = this.segmentDTOs[i];
+      let line = segDTOs[i];
       let sNode = _.find(nodes, {
         uniqueId: line.inputNodeUniqueId
       });
       let eNode = _.find(nodes, {
         uniqueId: line.outputNodeUniqueId
       })
-      console.log(!!eNode, !!sNode)
+
       if(!!sNode && !!eNode) {
         line['x1'] = sNode['positionLeft'] + 76;
-        line['y1'] = sNode['positionTop'] +  sNode.y + 10;
+        line['y1'] = sNode['positionTop'] +  sNode.y + 8;
         line['x2'] = eNode['positionLeft'] - 12;
-        line['y2'] = eNode['positionTop']  + eNode.y + 10;
+        line['y2'] = eNode['positionTop']  + eNode.y + 8;
         let _minddle_x = (line.x1 + line.x2 ) /2;
         line['d']=`M ${line.x1},${line.y1} C ${_minddle_x},${line.y1} ${_minddle_x},${line.y2} ${ line.x2},${line.y2}`
       }else {

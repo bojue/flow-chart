@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SvgCanvasComponent } from './svg-canvas.component';
+import { JsonSchemaComponent } from './json-schema.component';
 
-describe('SvgCanvasComponent', () => {
-  let component: SvgCanvasComponent;
-  let fixture: ComponentFixture<SvgCanvasComponent>;
+describe('JsonSchemaComponent', () => {
+  let component: JsonSchemaComponent;
+  let fixture: ComponentFixture<JsonSchemaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SvgCanvasComponent ]
+      declarations: [ JsonSchemaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SvgCanvasComponent);
+    fixture = TestBed.createComponent(JsonSchemaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

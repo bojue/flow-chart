@@ -1,9 +1,13 @@
-<div id="editor-content">
-    <app-node-signal 
-        (createComp)="creatCompByDrag($event)" 
-        class="item"></app-node-signal>
-    <div id="content" class="item content">
-        <ng-template appContentRefHost #contentComp ></ng-template>
+<div class="content">
+    <div id="jsonComp" >
+        <img class="icon" (click)="showJSON()" src="./../../../../assets/imgs/json.svg" alt="json" title="jsonschema">
     </div>
-    <app-node-stratrgy class="item"></app-node-stratrgy>
+    <div id="editor-content">
+        <app-node-signal 
+            (createComp)="creatCompByDrag($event)" 
+            class="item"></app-node-signal>
+        <div id="content" class="item content">
+            <ng-template appContentRefHost #contentComp ></ng-template>
+        </div>
+    </div>
 </div>

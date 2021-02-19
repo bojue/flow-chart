@@ -4,9 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContentRefHostDirective } from './directives/content-ref-host.directive';
 import { EditorCoreModule } from './core/editor-core.module';
 import { EditorContentComponent } from './components/editor-content/editor-content.component';
-import { NodeStratrgyComponent } from './components/node-stratrgy/node-stratrgy.component';
 import { NodeSignalComponent } from './components/node-signal/node-signal.component';
-
+import { JsonSchemaService } from './providers/json-schema.service';
+import { JsonSchemaComponent } from './components/json-schema/json-schema.component';
 const routes: Routes = [
   { 
     path: '', 
@@ -18,8 +18,8 @@ const routes: Routes = [
   declarations: [
     EditorContentComponent,
     ContentRefHostDirective,
-    NodeStratrgyComponent,
-    NodeSignalComponent
+    NodeSignalComponent,
+    JsonSchemaComponent
   ],
   exports:[
 
@@ -28,6 +28,9 @@ const routes: Routes = [
     CommonModule,
     EditorCoreModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    JsonSchemaService
   ],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA

@@ -3,10 +3,13 @@ import { DynamicCreateCompInitService } from '../../core/provider/dynamic-create
 import { DynamicCreateCompService } from '../../core/provider/dynamic-create-comp.service';
 import { ContentRefHostDirective } from '../../directives/content-ref-host.directive';
 import * as _ from 'loadsh'
-import { CompUniqueIdStateService } from '../../core/provider/uniqueid-state.service';
 import { EventManager } from '@angular/platform-browser';
-import { LineComponent } from '../../core/comps-libs/comps/lines/line/line.component';
+import { LineComponent } from '../../core/comps-libs/comps/line/line.component';
 import { cloneDeep } from 'loadsh';
+import { CompUniqueIdStateService } from '../../core/provider/uniqueid-state.service';
+import { JsonSchemaService } from '../../providers/json-schema.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JsonSchemaComponent } from '../json-schema/json-schema.component';
 @Component({
   selector: 'app-editor-content',
   templateUrl: './editor-content.component.html',
@@ -23,6 +26,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
   activeCompState_drag_sx: number; // 拖拽开始位置x
   activeCompState_drag_sy: number; // 拖拽开始位置y
   compDefType: string = 'node';
+  jsonScheme:any[]; // json对象
 
   @ViewChild(ContentRefHostDirective, { static: true }) viewContRef: ContentRefHostDirective;  // 当前的组件
 
@@ -31,7 +35,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     private dynamicCreateCompService: DynamicCreateCompService,
     private initCompDataService: DynamicCreateCompInitService,
     private uniqueidStateService: CompUniqueIdStateService,
-    private eventManager:EventManager
+    private eventManager:EventManager,
+    private jsonSchemaService: JsonSchemaService,
+    private modal: NgbModal
   ) {
 
   }
@@ -42,102 +48,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
 
   initData() {
     this.activeCompState_index = 0;
-    this.currentPageNodes =[{
-      "uniqueId":20,
-      "linkElementConfigId":null,
-      "linkConfigId":0,
-      "elementId":0,
-      "positionTop":100,
-      "positionLeft":100,
-      "expression":"5",
-      "nodeDTOs":[
-        {
-          "uniqueId": 10000,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "right",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        },
-        {
-          "uniqueId": 10001,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "left",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        },
-      ]
-    },{
-      "uniqueId":10,
-      "linkElementConfigId":null,
-      "linkConfigId":0,
-      "elementId":0,
-      "positionTop":200,
-      "positionLeft":200,
-      "expression":"5",
-      "nodeDTOs":[
-        {
-          "uniqueId": 10002,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "right",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        }, {
-          "uniqueId": 10006,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "right",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        },
-        {
-          "uniqueId": 10003,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "left",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        }, {
-          "uniqueId": 10004,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "left",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        }, {
-          "uniqueId": 10005,
-          "nodeId": null,
-          "linkElementConfigId": null,
-          "nodeDirection": "right",
-          "nodeType": "custom",
-          "nodeIndex": 1,
-          "nodeTag": null,
-          "expression": null,
-          "segmentDTOs": []
-        },
-      ]
-    }
-  ]}
+    this.currentPageNodes = [];
+    this.jsonScheme = [];
+  }
 
   ngAfterContentInit() {
     this.currentViewContRef = this.viewContRef.viewContainerRef;
@@ -220,6 +133,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
 
   initRendeComps() {
     let len = this.currentPageNodes.length;
+    console.log(this.currentPageNodes)
     for (let i = 0; i < len; i++) {
       this.renderComponent('node', i);
     }
@@ -268,7 +182,6 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     let eType = event.e.type;
     if(eType ==='dragstart') {
       _nodeData.befNodeActive = true;
-      console.log(_direction, event.state)
     }else if(eType === 'dragend') {
       _nodeData.befNodeActive = false
     }
@@ -302,6 +215,7 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
           }else {
             if(_node.nextNodeactive) {
               _node.nextNodeactive = false;
+              break;
             }
           }
         } else if(event.state === 'input') {
@@ -392,6 +306,19 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
   }
 
   drawSegmentDTO(segment) {
-    console.log(segment)
+
+  }
+
+  showJSON() {
+    let pageElements = _.cloneDeep(this.currentPageNodes);
+    this.jsonScheme = this.jsonSchemaService.getJsonByElements(pageElements);
+    this.openSchemaComp();
+  }
+
+  openSchemaComp() {
+    let activeModal = this.modal.open(JsonSchemaComponent,{
+      size: 'xl'
+    });
+    activeModal.componentInstance.jsonSchema = this.jsonScheme;
   }
 }

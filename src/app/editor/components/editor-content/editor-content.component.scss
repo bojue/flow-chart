@@ -1,4 +1,14 @@
 :host {
+    #jsonComp {
+        position: absolute;
+        top:-2px;
+        right: 85px;
+        .icon {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+    }
     #editor-content {
         position: relative;
         margin: 20px;
@@ -6,12 +16,12 @@
         min-height: 700px;
         width: calc(100% - 200px);
         display: grid;
-        grid-template-columns: 200px auto 300px;
+        grid-template-columns: 200px auto;
         grid-column-gap: 5px;
         overflow-x: auto;
         overflow-y: hidden;
         .item {
-            border:1px solid #cccccc;
+            // border:1px solid #cccccc;
             background: #ffffff;
         }
         .content {

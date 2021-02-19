@@ -11,6 +11,7 @@ import { CompUniqueIdStateService } from './provider/uniqueid-state.service';
   imports: [
     CommonModule,
     CompsLibsModule,
+    
   ],
   providers:[
     DynamicCreateCompService,

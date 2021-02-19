@@ -1,0 +1,27 @@
+<div class="json-schema">
+    <div class="title">
+        <span class="tit">
+            JSONSCHEMA
+        </span>
+        <img class="icon" (click)="close()" src="./../../../../assets/imgs/close.svg" alt="">
+    </div>
+
+    <div id="content">
+<!-- <pre id="json" > [
+    <span *ngFor="let ele of jsonSchema;"><span class="json-ele">
+    <span class="key">uniqueId</span><span class="spe">:</span><span class="val">{{ele.uniqueId}}</span>
+    <span class="key">positionLeft</span><span class="spe">:</span><span class="val">{{ele.positionLeft}}</span>
+    <span class="key">positionTop</span><span class="spe">:</span><span class="val">{{ele.positionTop}}</span>
+    <span class="key">nodeDTOs</span><span class="spe">:</span><span class="val"><span *ngFor="let node of ele.nodeDTOs;">[
+        <span class="key">uniqueId</span><span class="spe">:</span><span class="val">{{node.uniqueId}}</span>
+        <span class="key">nodeType</span><span class="spe">:</span><span class="val">{{node.nodeType}}</span>
+        <span class="key">nodeTag</span><span class="spe">:</span><span class="val">{{node.nodeTag}}</span>
+        <span class="key">segmentDTOs</span><span class="spe">:</span><span class="val">[
+            <span *ngFor="let segment of node.segmentDTOs"><span class="key" >inputNodeUniqueId</span><span class="spe">:</span><span class="val">{{segment.inputNodeUniqueId}}</span>
+            <span class="key">outputNodeUniqueId</span><span class="spe">:</span><span class="val">{{segment.outputNodeUniqueId}}</span></span>
+        ],</span>
+    ],</span></span></span></span>
+ ],</pre> -->
+    <div class="values">{{jsonSchemaString}}</div>
+    </div>
+</div>
