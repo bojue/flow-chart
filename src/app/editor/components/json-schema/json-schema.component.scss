@@ -22,6 +22,8 @@
         margin: 5px 10px;
         height: 500px;
         background: aliceblue;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .json-ele {
         font-size: 12px;
