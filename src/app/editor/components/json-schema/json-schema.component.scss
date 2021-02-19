@@ -48,4 +48,10 @@
     .values {
         display: inline-block;
     }
+    .node-data {
+        transform: translateX(-50%);
+        position: absolute;
+        left: 50%;
+        top: 24%;
+    }
 }

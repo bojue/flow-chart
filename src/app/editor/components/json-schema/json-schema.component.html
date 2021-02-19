@@ -22,6 +22,9 @@
         ],</span>
     ],</span></span></span></span>
  ],</pre> -->
-    <div class="values">{{jsonSchemaString}}</div>
+    <div class="values" *ngIf="jsonSchema.length">{{jsonSchemaString}}</div>
+    <div class="values" *ngIf="!jsonSchema.length">
+        <img class="node-data" src="./../../../../assets/imgs/nodata.svg" alt="">
+    </div>
     </div>
 </div>
