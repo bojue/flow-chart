@@ -1,3 +1,7 @@
+# DEMO
+[Demo](https://bojue.github.io/flow-chart/)
+
+![demo.png](https://github.com/bojue/flow-chart/blob/master/src/assets/demo.PNG)
 # run dev
 
 ```javascript
