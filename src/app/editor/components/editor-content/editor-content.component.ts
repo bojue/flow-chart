@@ -115,7 +115,6 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         let node = addCompJsonData.nodeDTOs[i];
         node.uniqueId = this.uniqueidStateService.nodeUniqueIdState(this.currentPageNodes, i);
       }
-
     }
 
     this.currentPageNodes.push(addCompJsonData);
@@ -249,16 +248,27 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
 
   appendLine( nextNode, befNode, segmentDTOs:any[]) {
     if(befNode && nextNode) {
-      let line = {
-        "segmentId": null,
-        "inputLinkElementConfigId": null,
-        "inputNodeId": null,
-        "inputNodeUniqueId": befNode.uniqueId,
-        "outputLinkElementConfigId": null,
-        "outputNodeId": null,
-        "outputNodeUniqueId": nextNode.uniqueId
+      let hasBefBool = _.find(segmentDTOs, {
+        inputNodeUniqueId: befNode.uniqueId
+      })
+      let hasNextBool = _.find(segmentDTOs, {
+        outputNodeUniqueId: nextNode.uniqueId
+      })
+      if(hasBefBool && hasNextBool) {
+        console.info("触点连线已经存在，无需创建新的连接！");
+      } else {
+        let line = {
+          "segmentId": null,
+          "inputLinkElementConfigId": null,
+          "inputNodeId": null,
+          "inputNodeUniqueId": befNode.uniqueId,
+          "outputLinkElementConfigId": null,
+          "outputNodeId": null,
+          "outputNodeUniqueId": nextNode.uniqueId
+        }
+        segmentDTOs.push(line)
       }
-      segmentDTOs.push(line)
+  
     }
   }
 

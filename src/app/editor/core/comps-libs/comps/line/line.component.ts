@@ -76,7 +76,6 @@ export class LineComponent implements OnInit , AfterContentChecked {
       let eNode = _.find(nodes, {
         uniqueId: line.outputNodeUniqueId
       })
-
       if(!!sNode && !!eNode) {
         line['x1'] = sNode['positionLeft'] + 76;
         line['y1'] = sNode['positionTop'] +  sNode.y + 8;
