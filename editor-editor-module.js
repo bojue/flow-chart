@@ -969,16 +969,13 @@ class EditorContentComponent {
                 loadsh__WEBPACK_IMPORTED_MODULE_2__["remove"](this.currentPageNodes, node => {
                     return node.active === true;
                 });
-                this.reRenderComp();
                 this.activeCompState_index = -1;
+                this.reRenderComp();
             }
         });
     }
     reRenderComp() {
-        let len = this.currentPageNodes.length;
-        for (let i = 0; i < len; i++) {
-            this.currentViewContRef.clear(i);
-        }
+        this.currentViewContRef.clear();
         this.initRendeComps();
         this.initRenderLineComp();
     }
@@ -1015,8 +1012,9 @@ class EditorContentComponent {
             }
         }
         this.currentPageNodes.push(addCompJsonData);
-        this.activeCompState_index = this.currentPageNodes.length - 1;
-        this.renderComponent(_compType);
+        let currIndex = this.currentPageNodes.length - 1;
+        this.activeCompState_index = currIndex;
+        this.renderComponent(_compType, currIndex);
     }
     initPagesCompState() {
         let len = this.currentPageNodes.length;
@@ -1027,7 +1025,6 @@ class EditorContentComponent {
     }
     initRendeComps() {
         let len = this.currentPageNodes.length;
-        console.log(this.currentPageNodes);
         for (let i = 0; i < len; i++) {
             this.renderComponent('node', i);
         }
@@ -1040,7 +1037,7 @@ class EditorContentComponent {
         compInstance.elements = this.currentPageNodes;
     }
     renderComponent(compType = 'node', currentIndex, componnet) {
-        let compIndex = currentIndex || this.activeCompState_index;
+        let compIndex = currentIndex;
         let compJsonSchame = this.currentPageNodes[compIndex];
         let comp = this.dynamicCreateCompService.getComponentByType(compType); // 声明一个组件
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp); // 实例化一个组价
@@ -1143,16 +1140,27 @@ class EditorContentComponent {
     }
     appendLine(nextNode, befNode, segmentDTOs) {
         if (befNode && nextNode) {
-            let line = {
-                "segmentId": null,
-                "inputLinkElementConfigId": null,
-                "inputNodeId": null,
-                "inputNodeUniqueId": befNode.uniqueId,
-                "outputLinkElementConfigId": null,
-                "outputNodeId": null,
-                "outputNodeUniqueId": nextNode.uniqueId
-            };
-            segmentDTOs.push(line);
+            let hasBefBool = loadsh__WEBPACK_IMPORTED_MODULE_2__["find"](segmentDTOs, {
+                inputNodeUniqueId: befNode.uniqueId
+            });
+            let hasNextBool = loadsh__WEBPACK_IMPORTED_MODULE_2__["find"](segmentDTOs, {
+                outputNodeUniqueId: nextNode.uniqueId
+            });
+            if (hasBefBool && hasNextBool) {
+                console.info("触点连线已经存在，无需创建新的连接！");
+            }
+            else {
+                let line = {
+                    "segmentId": null,
+                    "inputLinkElementConfigId": null,
+                    "inputNodeId": null,
+                    "inputNodeUniqueId": befNode.uniqueId,
+                    "outputLinkElementConfigId": null,
+                    "outputNodeId": null,
+                    "outputNodeUniqueId": nextNode.uniqueId
+                };
+                segmentDTOs.push(line);
+            }
         }
     }
     elementComponentChange(event) {
@@ -1365,9 +1373,9 @@ class LineComponent {
             });
             if (!!sNode && !!eNode) {
                 line['x1'] = sNode['positionLeft'] + 76;
-                line['y1'] = sNode['positionTop'] + sNode.y + 8;
+                line['y1'] = sNode['positionTop'] + sNode.y + 6;
                 line['x2'] = eNode['positionLeft'] - 12;
-                line['y2'] = eNode['positionTop'] + eNode.y + 8;
+                line['y2'] = eNode['positionTop'] + eNode.y + 7;
                 let _minddle_x = (line.x1 + line.x2) / 2;
                 line['d'] = `M ${line.x1},${line.y1} C ${_minddle_x},${line.y1} ${_minddle_x},${line.y2} ${line.x2},${line.y2}`;
             }
