@@ -78,9 +78,9 @@ export class LineComponent implements OnInit , AfterContentChecked {
       })
       if(!!sNode && !!eNode) {
         line['x1'] = sNode['positionLeft'] + 76;
-        line['y1'] = sNode['positionTop'] +  sNode.y + 8;
+        line['y1'] = sNode['positionTop'] +  sNode.y + 6;
         line['x2'] = eNode['positionLeft'] - 12;
-        line['y2'] = eNode['positionTop']  + eNode.y + 8;
+        line['y2'] = eNode['positionTop']  + eNode.y + 7;
         let _minddle_x = (line.x1 + line.x2 ) /2;
         line['d']=`M ${line.x1},${line.y1} C ${_minddle_x},${line.y1} ${_minddle_x},${line.y2} ${ line.x2},${line.y2}`
       }else {

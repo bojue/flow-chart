@@ -65,17 +65,14 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         _.remove(this.currentPageNodes, node => {
           return node.active === true 
         })
-        this.reRenderComp();
         this.activeCompState_index = -1;
+        this.reRenderComp();
       }
     })
   }
 
   reRenderComp() {
-    let len = this.currentPageNodes.length;
-    for(let i=0;i<len;i++) {
-      this.currentViewContRef.clear(i)
-    }
+    this.currentViewContRef.clear();
     this.initRendeComps();
     this.initRenderLineComp();
   }
@@ -116,10 +113,10 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
         node.uniqueId = this.uniqueidStateService.nodeUniqueIdState(this.currentPageNodes, i);
       }
     }
-
     this.currentPageNodes.push(addCompJsonData);
-    this.activeCompState_index = this.currentPageNodes.length - 1;
-    this.renderComponent(_compType);
+    let currIndex = this.currentPageNodes.length - 1;
+    this.activeCompState_index = currIndex;
+    this.renderComponent(_compType,  currIndex);
   }
 
   initPagesCompState() {
@@ -132,7 +129,6 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
 
   initRendeComps() {
     let len = this.currentPageNodes.length;
-    console.log(this.currentPageNodes)
     for (let i = 0; i < len; i++) {
       this.renderComponent('node', i);
     }
@@ -146,9 +142,9 @@ export class EditorContentComponent implements OnInit, AfterContentInit, AfterCo
     (<any>compInstance).elements = this.currentPageNodes;
   }
 
-  renderComponent(compType: string = 'node', currentIndex?:number, componnet?:any) {
-    let compIndex = currentIndex || this.activeCompState_index;
-    let compJsonSchame = this.currentPageNodes[compIndex]
+  renderComponent(compType: string = 'node', currentIndex:number, componnet?:any) {
+    let compIndex = currentIndex ;
+    let compJsonSchame = this.currentPageNodes[compIndex];
     let comp = this.dynamicCreateCompService.getComponentByType(compType); // 声明一个组件
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp); // 实例化一个组价
     let compRef = this.currentViewContRef.createComponent(componentFactory); // 动态创建一个组件
